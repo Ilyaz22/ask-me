@@ -7,6 +7,7 @@ class User < ApplicationRecord
   before_save :downcase_nickname
 
   validates :email, presence: true, uniqueness: true
+  validates :header_color, format: { with: /\A#([a-f0-9]{3}){1,2}\z/i }
 
   has_many :questions, dependent: :delete_all
 
