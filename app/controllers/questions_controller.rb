@@ -6,7 +6,7 @@ class QuestionsController < ApplicationController
   def hide
     @question.update(hidden: true)
 
-    redirect_to user_path(@question.user) , notice: 'Вопрос скрыт!'
+    redirect_to user_path(@question.user), notice: 'Вопрос скрыт!'
   end
 
   def create
@@ -17,7 +17,7 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to user_path(@question.user), notice: "Новый вопрос создан!"
     else
-      redirect_to user_path(params[:question][:user_id]) , alert: "Вопрос пустой или слишком большой"
+      redirect_to user_path(params[:question][:user_id]), alert: "Вопрос пустой или слишком большой"
     end
   end
 
