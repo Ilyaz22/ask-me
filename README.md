@@ -1,24 +1,32 @@
-# README
+## Ask_me
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[Ask_me](http:/www.ilyaz.site) - сайт, где можно задавать людям вопросы на их публичной страничке.
 
-Things you may want to cover:
+Работает на `Ruby 3.1.3` и `Rails 7.0.1`
 
-* Ruby version
+## Установка
 
-* System dependencies
+Установите `Bundler`:
+```
+bundle install
+```
 
-* Configuration
+Сгенерируйте свой `master.key` и `credentials.yml.enc`:
+```
+rails credentials:edit
+```
 
-* Database creation
+Создайте БД:
+```
+rails db:create
+```
 
-* Database initialization
+Запустите миграции:
+```
+rails db:migrate
+```
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Запустите сервер:
+```
+rails s
+```
