@@ -1,10 +1,10 @@
 <div class="mb-sm">
-  <%= simple_format h(question.body) %>
+  <%= render_with_hashtags(simple_format(html_escape(question.body))) %>
 </div>
 
 <% if question.answer.present? %>
   <div class="mb-sm text-dark-red">
-    <%= simple_format h(question.answer) %>
+    <%= render_with_hashtags(question.answer) %>
   </div>
 <% end %>
 

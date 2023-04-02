@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     put :hide, on: :member
   end
 
+  get "questions/hashtag/:name", to:"questions#hashtags"
+
   resource :session, only: %i[new create destroy]
   resources :users, except: %i[index], param: :nickname
 end

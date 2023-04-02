@@ -2,7 +2,6 @@ class QuestionsController < ApplicationController
   before_action :ensure_current_user, only: %i[update destroy edit]
   before_action :set_question_for_current_user, only: %i[update destroy edit hide]
 
-
   def hide
     @question.update(hidden: true)
 
@@ -43,6 +42,7 @@ class QuestionsController < ApplicationController
   def index
     @questions = Question.order(created_at: :desc).last(10)
     @users = User.order(created_at: :desc).last(10)
+    @tags = Tag.all.map(&:name).uniq.each { |tag| tag.prepend("#") }.join(", ")
   end
 
   def new
@@ -51,6 +51,11 @@ class QuestionsController < ApplicationController
   end
 
   def edit
+  end
+
+  def hashtags###
+    @tag = Tag.find_by!(name: params[:name].downcase)
+    @questions = @tag.questions
   end
 
   private
