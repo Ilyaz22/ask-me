@@ -4,7 +4,7 @@
 
 <% if question.answer.present? %>
   <div class="mb-sm text-dark-red">
-    <%= render_with_hashtags(question.answer) %>
+    <%= render_with_hashtags(simple_format(html_escape(question.answer))) %>
   </div>
 <% end %>
 

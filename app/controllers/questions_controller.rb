@@ -42,7 +42,7 @@ class QuestionsController < ApplicationController
   def index
     @questions = Question.order(created_at: :desc).last(10)
     @users = User.order(created_at: :desc).last(10)
-    @tags = Tag.all.map(&:name).uniq.each { |tag| tag.prepend("#") }.join(", ")
+    @tags = Tag.all
   end
 
   def new
