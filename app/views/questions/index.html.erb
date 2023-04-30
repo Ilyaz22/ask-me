@@ -12,11 +12,11 @@
 
 <div class="container mt-sm">
   <h2 class="title-lg mb"> Все хэштэги:
-      <% @tags.each do |tag| %>
-        <span class="text-red">
-          #<%= link_to tag.name, hashtag_path(tag.name) %>
-        </span>
-      <% end %>
+    <% @tags.each do |tag| %>
+      <span class="text-red">
+        #<%= link_to tag.name, hashtag_path(tag.name) %>
+      </span>
+    <% end %>
   </h2>
 </div>
 

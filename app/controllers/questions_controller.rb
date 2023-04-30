@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :ensure_current_user, only: %i[update destroy edit]
   before_action :set_question_for_current_user, only: %i[update destroy edit hide]
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
   def hide
     @question.update(hidden: true)
@@ -53,7 +54,7 @@ class QuestionsController < ApplicationController
   def edit
   end
 
-  def hashtags###
+  def hashtags
     @tag = Tag.find_by!(name: params[:name].downcase)
     @questions = @tag.questions
   end
@@ -66,5 +67,9 @@ class QuestionsController < ApplicationController
 
   def set_question_for_current_user
     @question = current_user.questions.find(params[:id])
+  end
+
+  def render_404
+    render file: "#{Rails.root}/public/404.html", status: 404
   end
 end

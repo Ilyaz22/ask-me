@@ -5,6 +5,10 @@
   padding-top: 10px;
 }
 
+.hashtag-link {
+  text-decoration: none;
+}
+
 /*.question-text {
   white-space: pre-line;
 }*/

@@ -1,5 +1,5 @@
 class Question < ApplicationRecord
-  after_save_commit :save_hashtags, on: %i[ create update ]
+  after_save_commit :save_hashtags, on: %i[create update]
 
   has_many :questions_tags, dependent: :destroy
   has_many :tags, through: :questions_tags
