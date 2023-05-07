@@ -43,7 +43,7 @@ class QuestionsController < ApplicationController
   def index
     @questions = Question.order(created_at: :desc).last(10)
     @users = User.order(created_at: :desc).last(10)
-    @tags = Tag.all
+    @tags = Tag.joins(:questions_tags).limit(10).uniq
   end
 
   def new
@@ -55,7 +55,7 @@ class QuestionsController < ApplicationController
   end
 
   def hashtags
-    @tag = Tag.find_by!(name: params[:name].downcase)
+    @tag = Tag.joins(:questions_tags).find_by!(tags: { name: params[:name].downcase })
     @questions = @tag.questions
   end
 
