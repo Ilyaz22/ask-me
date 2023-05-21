@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :ensure_current_user, only: %i[update destroy edit]
   before_action :set_question_for_current_user, only: %i[update destroy edit hide]
-  rescue_from ActiveRecord::RecordNotFound, with: :render_404
+  #rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
   def hide
     @question.update(hidden: true)
@@ -43,7 +43,7 @@ class QuestionsController < ApplicationController
   def index
     @questions = Question.order(created_at: :desc).last(10)
     @users = User.order(created_at: :desc).last(10)
-    @tags = Tag.joins(:questions_tags).limit(10).uniq
+    @tags = Tag.with_questions.limit(10).uniq
   end
 
   def new
@@ -55,7 +55,7 @@ class QuestionsController < ApplicationController
   end
 
   def hashtags
-    @tag = Tag.joins(:questions_tags).find_by!(tags: { name: params[:name].downcase })
+    @tag = Tag.with_questions.find_by!(name: params[:name].downcase)
     @questions = @tag.questions
   end
 
@@ -69,7 +69,7 @@ class QuestionsController < ApplicationController
     @question = current_user.questions.find(params[:id])
   end
 
-  def render_404
-    render file: "#{Rails.root}/public/404.html", status: 404, layout: false
-  end
+  # def render_404
+  #   render file: "#{Rails.root}/public/404.html", status: 404, layout: false
+  # end
 end
