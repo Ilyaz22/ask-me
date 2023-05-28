@@ -1,22 +1,33 @@
 <div class="mb-sm">
-  <%= render_with_hashtags(simple_format(html_escape(question.body))) %>
+  <%= render_with_hashtags(simple_format(strip_tags(question.body))) %>
 </div>
 
 <% if question.answer.present? %>
   <div class="mb-sm text-dark-red">
-    <%= render_with_hashtags(simple_format(html_escape(question.answer))) %>
+    <%= render_with_hashtags(simple_format(strip_tags(question.answer))) %>
   </div>
 <% end %>
 
 <div class="text-sm question-footer">
   <div class="text-grey">
     <%= l(question.created_at, format: :short) %>
-    <span>был задан <%= question.author.present? ? (link_to display_nickname(question.author), user_path(question.author)) : '@Аноним' %></span>
+    <span> был задан
+      <% if question.author.present? %>
+        <%= link_to display_nickname(question.author), user_path(question.author) %>
+      <% else %>
+        @Аноним
+      <% end %>
+    </span>
   </div>
 
   <% if current_user == question.user %>
     <div>
-      <% edit_icon = (question.answer.present? ? 'pencil' : 'reply') %>
+      <% edit_icon = 
+        if question.answer.present?
+          'pencil'
+        else
+          'reply'
+        end %>
 
       <%= link_to fa_icon(edit_icon), edit_question_path(question),
         title: 'Изменить вопрос', class: 'mr-sm' %>
