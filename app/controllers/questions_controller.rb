@@ -40,7 +40,7 @@ class QuestionsController < ApplicationController
   end
 
   def index
-    @questions = Question.includes(:user).order(created_at: :desc).last(10)
+    @questions = Question.includes(:user, :author).order(created_at: :desc).last(10)
     @users = User.order(created_at: :desc).last(10)
     @tags = Tag.with_questions.limit(10).uniq
   end
@@ -55,7 +55,7 @@ class QuestionsController < ApplicationController
 
   def hashtags
     @tag = Tag.with_questions.find_by!(name: params[:name].downcase)
-    @questions = @tag.questions.includes(:user)
+    @questions = @tag.questions.includes(:user, :author)
   end
 
   private
